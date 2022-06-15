@@ -1,0 +1,34 @@
+﻿<Application x:Class="HOYA_IOT.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HOYA_IOT"
+             xmlns:viewmodel="clr-namespace:HOYA_IOT.ViewModel"
+             xmlns:view="clr-namespace:HOYA_IOT.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MainResource/MainResource.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewmodel:MainScreen_ViewModel}">
+                <view:MainScreen_View/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:Simulator_ViewModel}">
+                <view:Simulator_View/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:Settings_ViewModel}">
+                <view:Settings_View/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:ProcessOverView_ViewModel}">
+                <view:ProcessOverView_View/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:PackingData_ViewModel}">
+                <view:PackingData_View/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

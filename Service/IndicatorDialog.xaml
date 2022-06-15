@@ -1,0 +1,48 @@
+﻿<Window x:Class="HOYA_IOT.Service.IndicatorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HOYA_IOT.Service"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="None" Background="{x:Null}"
+        Title="IndicatorDialog" Height="100" Width="120">
+    <materialDesign:Card UniformCornerRadius="10" Background="{DynamicResource MaterialDesignPaper}" 
+                         Margin="5"  >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="0.3*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                    Text="Loading..."
+                    Foreground="#FF006CB7" 
+                   
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center" />
+            <ProgressBar Grid.Row="1"
+                        Style="{DynamicResource MaterialDesignLinearProgressBar}"
+                    HorizontalAlignment="Center"          
+                    IsIndeterminate="True"
+                    Value="10" Width="60" Height="30"  >
+                <ProgressBar.Foreground>
+                    <LinearGradientBrush>
+
+                        <GradientStop Color="#FF006CB7" Offset="0.5"/>
+
+                    </LinearGradientBrush>
+                </ProgressBar.Foreground>
+            </ProgressBar>
+
+
+
+        </Grid>
+    </materialDesign:Card>
+</Window>

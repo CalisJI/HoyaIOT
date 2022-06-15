@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:viewmodel="clr-namespace:HOYA_IOT.ViewModel"
+                    xmlns:view="clr-namespace:HOYA_IOT.View"
+                    xmlns:data ="clr-namespace:HOYA_IOT.DataRuntime"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <viewmodel:MainScreen_ViewModel x:Key="MainScreenVM"/>
+    <viewmodel:MainViewModel x:Key="MainVN"/>
+    <viewmodel:Simulator_ViewModel x:Key="Simulator"/>
+    <viewmodel:Settings_ViewModel x:Key="Settings"/>
+    <viewmodel:ProcessOverView_ViewModel x:Key="ProcessEdit"/>
+    <data:RuntimeProcess x:Key="RuntimeData"/>
+    <viewmodel:PackingData_ViewModel x:Key="PackingData"/>
+</ResourceDictionary>
