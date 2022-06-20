@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Media;
 using HOYA_IOT.ObjectData;
+using HOYA_IOT.Service.Indicator;
 
 namespace HOYA_IOT.ViewModel
 {
@@ -218,9 +219,13 @@ namespace HOYA_IOT.ViewModel
             {
             
             });
-            CheckCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            CheckCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-            
+                XPSDocument = null;
+                Indicator.Beingbusy();
+                Task<FixedDocumentSequence> a = ExcelFileParse.BrowseFile();
+                XPSDocument = await a;
+                Indicator.Finished();
             });
         }
         /// <summary>

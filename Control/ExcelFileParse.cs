@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Xps.Packaging;
-
+using Action = System.Action;
 
 namespace HOYA_IOT.Control
 {
@@ -124,38 +124,42 @@ namespace HOYA_IOT.Control
         /// 
         /// </summary>
         /// <returns></returns>
-        //public static Task<System.Windows.Documents.FixedDocumentSequence> BrowseFile()
-        //{
-        //    //Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-        //    //openFileDialog.DefaultExt = ".xls|.xlsx";
-        //    //openFileDialog.Filter = "(.xls)|*.xls|(.xlsx)|*xlsx";
-        //    //Nullable<bool> result = openFileDialog.ShowDialog();
-        //    //if (result == true)
-        //    //{
-        //    //    if (openFileDialog.FileName.Length > 0)
-        //    //    {
-        //    //        string newXSPDocumentName = string.Concat(Path.GetDirectoryName(ApplicationConfig.ApplicationConfig.ProcessExcelFile), "\\", Path.GetFileNameWithoutExtension(ApplicationConfig.ApplicationConfig.ProcessExcelFile), ".xps");
-        //    //        System.Windows.Documents.FixedDocumentSequence a = ConvertExcelToXPSDoc(ApplicationConfig.ApplicationConfig.ProcessExcelFile, newXSPDocumentName).GetFixedDocumentSequence();
-        //    //        return a;
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        return null;
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    return null;
-        //    //}
-        //    void act()
-        //    {
-        //        string newXSPDocumentName = string.Concat(Path.GetDirectoryName(ApplicationConfig.ApplicationConfig.ProcessExcelFile), "\\", Path.GetFileNameWithoutExtension(ApplicationConfig.ApplicationConfig.ProcessExcelFile), ".xps");
-        //        System.Windows.Documents.FixedDocumentSequence a = ConvertExcelToXPSDoc(ApplicationConfig.ApplicationConfig.ProcessExcelFile, newXSPDocumentName).GetFixedDocumentSequence();
-        //    };
-        //    Task a = new Task(act);
-        //    a.Start();
-           
-        //}
+        public static async Task<System.Windows.Documents.FixedDocumentSequence> BrowseFile()
+        {
+            //Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            //openFileDialog.DefaultExt = ".xls|.xlsx";
+            //openFileDialog.Filter = "(.xls)|*.xls|(.xlsx)|*xlsx";
+            //Nullable<bool> result = openFileDialog.ShowDialog();
+            //if (result == true)
+            //{
+            //    if (openFileDialog.FileName.Length > 0)
+            //    {
+            //        string newXSPDocumentName = string.Concat(Path.GetDirectoryName(ApplicationConfig.ApplicationConfig.ProcessExcelFile), "\\", Path.GetFileNameWithoutExtension(ApplicationConfig.ApplicationConfig.ProcessExcelFile), ".xps");
+            //        System.Windows.Documents.FixedDocumentSequence a = ConvertExcelToXPSDoc(ApplicationConfig.ApplicationConfig.ProcessExcelFile, newXSPDocumentName).GetFixedDocumentSequence();
+            //        return a;
+            //    }
+            //    else
+            //    {
+            //        return null;
+            //    }
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            System.Windows.Documents.FixedDocumentSequence doc = new System.Windows.Documents.FixedDocumentSequence();
+            void act()
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+                    string newXSPDocumentName = string.Concat(Path.GetDirectoryName(ApplicationConfig.ApplicationConfig.ProcessExcelFile), "\\", Path.GetFileNameWithoutExtension(ApplicationConfig.ApplicationConfig.ProcessExcelFile), ".xps");
+                    doc = ConvertExcelToXPSDoc(ApplicationConfig.ApplicationConfig.ProcessExcelFile, newXSPDocumentName).GetFixedDocumentSequence();
+                });
+            };
+            Task a = new Task(act);
+            a.Start();
+            await a;
+            return doc;
+        }
 
         /// <summary>
         /// 
@@ -169,15 +173,17 @@ namespace HOYA_IOT.Control
             Workbook excelWorkbook = excelApplication.Workbooks.Open(excelDocName);
             try
             {
-                
                 excelWorkbook.ExportAsFixedFormat(XlFixedFormatType.xlTypeXPS, Filename: xpsDocName, OpenAfterPublish: false);
+                
+                XpsDocument xpsDoc = new XpsDocument(xpsDocName, FileAccess.Read, compressionOption: System.IO.Packaging.CompressionOption.Maximum);
+                
                 excelApplication.Quit();
-                XpsDocument xpsDoc = new XpsDocument(xpsDocName, FileAccess.Read);
                 return xpsDoc;
             }
             catch (Exception exp)
             {
                 string str = exp.Message;
+                Console.WriteLine(exp.Message);
             }
             return null;
         }

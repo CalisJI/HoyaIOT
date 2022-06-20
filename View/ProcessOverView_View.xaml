@@ -31,13 +31,14 @@
             <Border BorderBrush="Black" BorderThickness="1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="0.4*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Left"
-                        Margin="80,0,0,0"
-                        Grid.Row="0" Height="200" Width="850">
+                        Margin="80,30,0,0"
+                        Grid.Row="0" Height="250" Width="850">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition/>
@@ -529,6 +530,8 @@
 
 
                     <Grid
+                        VerticalAlignment="Top"
+                        Margin="0,100,0,0"
                         HorizontalAlignment="Center"
                         Grid.Row="1" Height="270" Width="930">
                         <Grid.ColumnDefinitions>
@@ -2117,7 +2120,10 @@
         </Grid>
         <Grid Grid.Column="2">
             <Border BorderBrush="Black" BorderThickness="1">
-
+              
+                <DocumentViewer Document="{Binding XPSDocument}">
+                    
+                </DocumentViewer>
             </Border>
         </Grid>
     </Grid>
